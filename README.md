@@ -16,9 +16,11 @@ This is a multi-tenant Help Center platform built with Laravel, evolved from the
 ### Technologies
 
 - Laravel 12  
-- PHP 8.3  
-- MySQL 8  
-- Eloquent ORM  
+- PHP
+- MySQL
+- Eloquent ORM
+- Livewire (components)
+- Jetstrean (authentication)
 
 ---
 
