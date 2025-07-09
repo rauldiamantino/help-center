@@ -21,7 +21,7 @@ This is a multi-tenant Help Center platform built with Laravel, evolved from the
 - Eloquent ORM
 - Livewire (components)
 - Jetstream (authentication)
-- Tailwindcss
+- Tailwind CSS
 
 ---
 
