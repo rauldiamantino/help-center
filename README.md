@@ -20,7 +20,7 @@ This is a multi-tenant Help Center platform built with Laravel, evolved from the
 - MySQL
 - Eloquent ORM
 - Livewire (components)
-- Jetstrean (authentication)
+- Jetstream (authentication)
 
 ---
 
