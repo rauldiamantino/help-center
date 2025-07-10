@@ -8,7 +8,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Article')]
+#[Title('Articles')]
 #[Layout('layouts.dashboard')]
 class ShowArticle extends Component
 {

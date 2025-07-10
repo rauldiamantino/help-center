@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard\Articles\EditArticle;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\Articles\ListArticles;
 use App\Livewire\Dashboard\Articles\ShowArticle;
@@ -20,6 +21,7 @@ Route::middleware([
     Route::get('/', Index::class)->name('index');
     Route::get('/articles', ListArticles::class)->name('articles.index');
     Route::get('/articles/{articleNumber}', ShowArticle::class)->name('articles.show');
+    Route::get('/articles/{articleNumber}/edit', EditArticle::class)->name('articles.edit');
     // Route::get('/articles/create', CreateArticle::class)->name('articles.create');
     // Route::get('/articles/{id}/edit', EditArticle::class)->name('articles.edit');
 });

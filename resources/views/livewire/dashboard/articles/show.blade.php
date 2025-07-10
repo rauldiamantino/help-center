@@ -1,5 +1,11 @@
-<div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4">
-    <div class="max-w-4xl mx-auto bg-white p-8 rounded shadow">
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('Edit Article') }}
+    </h2>
+</x-slot>
+
+<div>
+    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold mb-6">{{ $article->title }}</h1>
         <article class="prose max-w-none">{!! $article->content !!}</article>
 

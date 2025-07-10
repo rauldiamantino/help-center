@@ -1,24 +1,28 @@
-<div class="p-10">
-    <div class="overflow-x-auto bg-gray-100 p-6 rounded-xl shadow">
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('Articles') }}
+    </h2>
+</x-slot>
+
+<div>
+    <div class="overflow-x-auto max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <table
             class="min-w-full text-sm text-left text-gray-700 bg-white border border-gray-300 rounded-lg overflow-hidden">
             <thead class="text-xs text-gray-500 uppercase bg-gray-50">
                 <tr>
-                    {{-- <th class="px-5 py-3 border-b border-gray-300">Code</th> --}}
-                    <th class="px-5 py-3 border-b border-gray-300">Title</th>
-                    <th class="px-5 py-3 border-b border-gray-300">Status</th>
+                    <th class="py-3 border-b border-gray-300">Title</th>
+                    <th class="py-3 border-b border-gray-300">Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($articles as $article)
                     <tr class="hover:bg-gray-50 border-b border-gray-300">
-                        {{-- <td class="px-5 py-3">{{ $article->article_number }}</td> --}}
-                        <td class="p-4 bg-white rounded shadow cursor-pointer hover:bg-gray-50">
-                            <a href="{{ route('dashboard.articles.show', $article->article_number) }}" wire:navigate>
+                        <td class="py-4 bg-white rounded shadow cursor-pointer hover:bg-gray-50">
+                            <a href="{{ route('dashboard.articles.edit', $article->article_number) }}" wire:navigate>
                                 <h2 class="font-semibold">{{ $article->title }}</h2>
                             </a>
                         </td>
-                        <td class="px-5 py-3">
+                        <td class="py-4">
                             @if ($article->status === 'published')
                                 <span
                                     class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-green-700 bg-green-100 rounded">

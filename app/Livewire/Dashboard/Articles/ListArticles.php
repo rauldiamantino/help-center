@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 
-#[Title('Articles')]
+#[Title('Article')]
 #[Layout('layouts.dashboard')]
 class ListArticles extends Component
 {
