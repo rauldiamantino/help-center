@@ -1,4 +1,4 @@
-<div class="p-10 bg-gray-600">
+<div class="p-10">
     <div class="overflow-x-auto bg-gray-100 p-6 rounded-xl shadow">
         <table
             class="min-w-full text-sm text-left text-gray-700 bg-white border border-gray-300 rounded-lg overflow-hidden">
@@ -13,8 +13,10 @@
                 @foreach ($articles as $article)
                     <tr class="hover:bg-gray-50 border-b border-gray-300">
                         <td class="px-5 py-3">{{ $article->id }}</td>
-                        <td class="p-4 bg-white rounded shadow cursor-pointer hover:bg-gray-50" wire:click="showArticle({{ $article->id }})">
-                            <h2 class="font-semibold">{{ $article->title }}</h2>
+                        <td class="p-4 bg-white rounded shadow cursor-pointer hover:bg-gray-50">
+                            <a href="{{ route('dashboard.articles.show', $article->id) }}" wire:navigate>
+                                <h2 class="font-semibold">{{ $article->title }}</h2>
+                            </a>
                         </td>
                         <td class="px-5 py-3">
                             @if ($article->status === 'published')

@@ -9,28 +9,23 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Article')]
-#[Layout('layouts.app')]
+#[Layout('layouts.dashboard')]
 class ShowArticle extends Component
 {
     public $article;
     public $articleId;
 
-    public function mount($articleId)
+    public function mount($id)
     {
-        $this->article = Article::where('id', $articleId)
+        $this->article = Article::where('id', $id)
             ->where('company_id', Auth::user()->company_id)
-            ->findOrFail($articleId);
+            ->findOrFail($id);
 
-        $this->articleId = $articleId;
-    }
-
-    public function backToList()
-    {
-        $this->dispatch('backToList');
+        $this->articleId = $id;
     }
 
     public function render()
     {
-        return view('livewire.articles.show-article');
+        return view('livewire.dashboard.articles.show');
     }
 }

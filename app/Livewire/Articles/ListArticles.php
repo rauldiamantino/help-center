@@ -9,8 +9,8 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 
 #[Title('Articles')]
-#[Layout('layouts.app')]
-class ArticleList extends Component
+#[Layout('layouts.dashboard')]
+class ListArticles extends Component
 {
     public $articles;
 
@@ -21,13 +21,8 @@ class ArticleList extends Component
             ->get();
     }
 
-    public function showArticle(int $articleId)
-    {
-        $this->dispatch('showArticle', ['id' => $articleId]);
-    }
-
     public function render()
     {
-        return view('livewire.articles.article-list');
+        return view('livewire.dashboard.articles.index');
     }
 }
