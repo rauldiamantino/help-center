@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Articles;
+namespace App\Livewire\Dashboard\Articles;
 
 use Livewire\Component;
 use App\Models\Article;
@@ -17,7 +17,7 @@ class ListArticles extends Component
     public function mount()
     {
         $this->articles = Article::where('company_id', Auth::user()->company_id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
     }
 

@@ -4,17 +4,17 @@
             class="min-w-full text-sm text-left text-gray-700 bg-white border border-gray-300 rounded-lg overflow-hidden">
             <thead class="text-xs text-gray-500 uppercase bg-gray-50">
                 <tr>
-                    <th class="px-5 py-3 border-b border-gray-300">ID</th>
-                    <th class="px-5 py-3 border-b border-gray-300">Título</th>
+                    {{-- <th class="px-5 py-3 border-b border-gray-300">Code</th> --}}
+                    <th class="px-5 py-3 border-b border-gray-300">Title</th>
                     <th class="px-5 py-3 border-b border-gray-300">Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($articles as $article)
                     <tr class="hover:bg-gray-50 border-b border-gray-300">
-                        <td class="px-5 py-3">{{ $article->id }}</td>
+                        {{-- <td class="px-5 py-3">{{ $article->article_number }}</td> --}}
                         <td class="p-4 bg-white rounded shadow cursor-pointer hover:bg-gray-50">
-                            <a href="{{ route('dashboard.articles.show', $article->id) }}" wire:navigate>
+                            <a href="{{ route('dashboard.articles.show', $article->article_number) }}" wire:navigate>
                                 <h2 class="font-semibold">{{ $article->title }}</h2>
                             </a>
                         </td>

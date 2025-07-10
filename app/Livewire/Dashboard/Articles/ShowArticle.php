@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Articles;
+namespace App\Livewire\Dashboard\Articles;
 
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +13,16 @@ use Livewire\Component;
 class ShowArticle extends Component
 {
     public $article;
-    public $articleId;
+    public $articleNumber;
 
-    public function mount($id)
+    public function mount($articleNumber)
     {
-        $this->article = Article::where('id', $id)
-            ->where('company_id', Auth::user()->company_id)
-            ->findOrFail($id);
+        $this->articleNumber = $articleNumber;
+        $companyId = Auth::user()->company_id;
 
-        $this->articleId = $id;
+        $this->article = Article::where('article_number', $articleNumber)
+            ->where('company_id', $companyId)
+            ->firstOrFail();
     }
 
     public function render()

@@ -16,6 +16,11 @@ class Company extends Model
         'logo_path',
     ];
 
+    public function counters(): HasMany
+    {
+        return $this->hasMany(CompanyCounter::class);
+    }
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
