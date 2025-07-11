@@ -3,6 +3,8 @@
 namespace App\Livewire\Dashboard\Articles;
 
 use App\Models\Article;
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -13,9 +15,11 @@ use Livewire\Component;
 class EditArticle extends Component
 {
     public Article $article;
+    public Collection $categories;
     public string $title;
     public string $slug;
     public string $content;
+    public int $category_id;
 
     public function mount(int $articleNumber)
     {
@@ -25,9 +29,14 @@ class EditArticle extends Component
             ->where('company_id', $companyId)
             ->firstOrFail();
 
+        $this->categories = Category::where('company_id', $companyId)
+            ->select('id', 'name')
+            ->get();
+
         $this->title = $this->article->title;
         $this->slug = $this->article->slug;
         $this->content = $this->article->content;
+        $this->category_id = $this->article->category_id;
     }
 
     public function render()
@@ -53,6 +62,7 @@ class EditArticle extends Component
                 'regex:/^[a-z0-9-]+$/',
                 'unique:articles,slug,' . $this->article->id,
             ],
+            'category_id' => 'required|numeric',
             'content' => 'nullable|string',
         ];
     }

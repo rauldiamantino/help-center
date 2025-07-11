@@ -6,13 +6,6 @@
 
 <div>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-
-        {{-- @if (session()->has('success'))
-            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-                {{ session('success') }}
-            </div>
-        @endif --}}
-
         <x-article-form-section submit="save">
             <x-slot name="title">
                 {{ __('Edit Article') }}
@@ -27,6 +20,11 @@
                     <x-label for="title" value="{{ __('Title') }}" />
                     <x-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" />
                     <x-input-error for="title" class="mt-2" />
+                </div>
+                <div class="col-span-6 sm:col-span-4">
+                    <x-label for="category_id" value="{{ __('Category') }}" />
+                    <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categories" value-field="id" label-field="name" option-default="Select" />
+                    <x-input-error for="category_id" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="slug" value="{{ __('Slug') }}" />
