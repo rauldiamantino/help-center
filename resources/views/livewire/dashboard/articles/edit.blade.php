@@ -7,14 +7,6 @@
 <div>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <x-article-form-section submit="save">
-            <x-slot name="title">
-                {{ __('Edit Article') }}
-            </x-slot>
-
-            <x-slot name="description">
-                {{ __('Update the details of your article.') }}
-            </x-slot>
-
             <x-slot name="form">
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="title" value="{{ __('Title') }}" />
