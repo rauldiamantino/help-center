@@ -12,44 +12,42 @@ use Livewire\Component;
 
 #[Title('Articles')]
 #[Layout('layouts.dashboard')]
-class EditArticle extends Component
+class CreateArticle extends Component
 {
-    public Article $article;
     public Collection $categories;
     public string $title;
     public string $slug;
-    public string $content;
+    public string $content = '';
     public int $category_id;
 
-    public function mount(int $articleNumber)
+    public function mount()
     {
         $companyId = Auth::user()->company_id;
-
-        $this->article = Article::where('article_number', $articleNumber)
-            ->where('company_id', $companyId)
-            ->firstOrFail();
 
         $this->categories = Category::where('company_id', $companyId)
             ->select('id', 'name')
             ->get();
-
-        $this->title = $this->article->title;
-        $this->slug = $this->article->slug;
-        $this->content = $this->article->content;
-        $this->category_id = $this->article->category_id;
     }
 
     public function render()
     {
-        return view('livewire.dashboard.articles.edit');
+        return view('livewire.dashboard.articles.create');
     }
 
     public function save()
     {
-        $validated = $this->validate();
-        $this->article->fill($validated);
-        $this->article->save();
-        $this->dispatch('saved');
+        $this->validate();
+
+        Article::create([
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'content' => $this->content,
+            'category_id' => $this->category_id,
+            'company_id' => Auth::user()->company_id,
+            'user_id' => Auth::id(),
+        ]);
+
+        return $this->redirectRoute('dashboard.articles.index');
     }
 
     protected function rules()
@@ -60,7 +58,7 @@ class EditArticle extends Component
                 'required',
                 'string',
                 'regex:/^[a-z0-9-]+$/',
-                'unique:articles,slug,' . $this->article->id,
+                'unique:articles,slug',
             ],
             'category_id' => 'required|numeric|exists:categories,id',
             'content' => 'nullable|string',

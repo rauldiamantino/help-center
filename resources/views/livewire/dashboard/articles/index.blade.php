@@ -6,6 +6,9 @@
 
 <div>
     <div class="overflow-x-auto max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="mb-8 w-full flex justify-end">
+            <x-link-button href="{{ route('dashboard.articles.create') }}" wire:navigate>Add</x-link-button>
+        </div>
         <table
             class="min-w-full text-sm text-left text-gray-700 bg-white border border-gray-300 rounded-lg overflow-hidden">
             <thead class="text-xs text-gray-500 uppercase bg-gray-50">
