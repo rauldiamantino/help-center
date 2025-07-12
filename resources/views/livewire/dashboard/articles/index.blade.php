@@ -1,16 +1,17 @@
 <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Articles') }}
-    </h2>
+    <div class="flex justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Articles') }}
+        </h2>
+        <x-link-button href="{{ route('dashboard.articles.create') }}" wire:navigate>
+            + New Article
+        </x-link-button>
+    </div>
 </x-slot>
 
 <div>
     <div class="overflow-x-auto max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        <div class="mb-8 w-full flex justify-end">
-            <x-link-button href="{{ route('dashboard.articles.create') }}" wire:navigate>Add</x-link-button>
-        </div>
-        <table
-            class="min-w-full text-sm text-left text-gray-700 bg-white border border-gray-300 rounded-lg overflow-hidden">
+        <table class="min-w-full text-sm text-left text-gray-700 bg-white border border-gray-300 rounded-lg overflow-hidden">
             <thead class="text-xs text-gray-500 uppercase bg-gray-50">
                 <tr>
                     <th class="py-3 border-b border-gray-300">Title</th>
@@ -20,10 +21,12 @@
             <tbody>
                 @foreach ($articles as $article)
                     <tr class="hover:bg-gray-50 border-b border-gray-300">
-                        <td class="py-4 bg-white rounded shadow cursor-pointer hover:bg-gray-50">
-                            <a href="{{ route('dashboard.articles.edit', $article->article_number) }}" wire:navigate>
-                                <h2 class="font-semibold">{{ $article->title }}</h2>
-                            </a>
+                        <td class="py-4 bg-white rounded shadow hover:bg-gray-50">
+                            <h2 class="font-semibold">
+                                <a href="{{ route('dashboard.articles.edit', $article->article_number) }}" wire:navigate>
+                                    {{ $article->title }}
+                                </a>
+                            </h2>
                         </td>
                         <td class="py-4">
                             @if ($article->status === 'published')

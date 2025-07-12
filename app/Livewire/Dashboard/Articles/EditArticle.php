@@ -52,6 +52,18 @@ class EditArticle extends Component
         $this->dispatch('saved');
     }
 
+    public function destroy()
+    {
+        if ($this->article->delete()) {
+            session()->flash('success', 'Article deleted successfully.');
+            return $this->redirectRoute('dashboard.articles.index');
+        }
+
+        session()->flash('error', 'Failed to delete the article.');
+        return $this->redirectRoute('dashboard.articles.edit');
+    }
+
+
     protected function rules()
     {
         return [

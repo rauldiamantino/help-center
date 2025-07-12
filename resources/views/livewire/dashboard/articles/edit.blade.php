@@ -15,7 +15,8 @@
                 </div>
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="category_id" value="{{ __('Category') }}" />
-                    <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categories" value-field="id" label-field="name" option-default="Select" />
+                    <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categories"
+                        value-field="id" label-field="name" option-default="Select" />
                     <x-input-error for="category_id" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-4">
@@ -38,10 +39,24 @@
                 <x-link-button href="{{ route('dashboard.articles.index') }}" wire:navigate>
                     ← Back to List
                 </x-link-button>
+
                 <x-button>
                     {{ __('Save') }}
                 </x-button>
             </x-slot>
         </x-article-form-section>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 mt-10">
+            <div class="bg-white p-6 rounded flex justify-between items-center border border-gray-300">
+                <div>
+                    <h3 class="text-sm font-medium text-gray-800">Danger zone</h3>
+                    <p class="text-sm text-gray-500 mt-1">Permanently delete this article. This action cannot be undone.
+                    </p>
+                </div>
+                <x-danger-button wire:click="destroy" wire:loading.attr="disabled">
+                    Delete Article
+                </x-danger-button>
+            </div>
+        </div>
     </div>
 </div>
