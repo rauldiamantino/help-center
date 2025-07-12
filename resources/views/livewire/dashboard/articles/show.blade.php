@@ -1,15 +1,11 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Edit Article') }}
-    </h2>
-</x-slot>
+<div class="w-full grid grid-cols-[300px_1fr] min-h-[600px]">
+    <x-articles-sidebar :categories="$categories" :categoryNumber="$article->category->category_number"/>
 
-<div>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="overflow-x-auto w-full py-10 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold mb-6">{{ $article->title }}</h1>
         <article class="prose max-w-none">{!! $article->content !!}</article>
 
-        <x-link-button href="{{ route('dashboard.articles.index') }}" wire:navigate class="mt-10">
+        <x-link-button href="{{ route('dashboard.articles.index', ['categoryNumber' => $categoryNumber]) }}" wire:navigate>
             ← Back to List
         </x-link-button>
     </div>

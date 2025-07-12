@@ -4,7 +4,7 @@ namespace App\Livewire\Dashboard\Articles;
 
 use App\Models\Article;
 use App\Models\Category;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -20,6 +20,7 @@ class EditArticle extends Component
     public string $slug;
     public string $content;
     public int $category_id;
+    public int $status;
 
     public function mount(int $articleNumber)
     {
@@ -30,13 +31,15 @@ class EditArticle extends Component
             ->firstOrFail();
 
         $this->categories = Category::where('company_id', $companyId)
-            ->select('id', 'name')
+            ->select('id', 'name', 'category_number')
+            ->orderBy('updated_at', 'desc')
             ->get();
 
         $this->title = $this->article->title;
         $this->slug = $this->article->slug;
         $this->content = $this->article->content;
         $this->category_id = $this->article->category_id;
+        $this->status = $this->article->status;
     }
 
     public function render()
@@ -76,6 +79,7 @@ class EditArticle extends Component
             ],
             'category_id' => 'required|numeric|exists:categories,id',
             'content' => 'nullable|string',
+            'status' => 'numeric',
         ];
     }
 }

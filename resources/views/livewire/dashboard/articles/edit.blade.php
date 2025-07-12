@@ -1,13 +1,17 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Edit Article') }}
-    </h2>
-</x-slot>
+<div class="w-full grid grid-cols-[300px_1fr] min-h-[600px]">
+    <x-articles-sidebar :categories="$categories" :categoryNumber="$article->category->category_number" />
 
-<div>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="overflow-x-auto w-full py-10 sm:px-6 lg:px-8">
         <x-article-form-section submit="save">
             <x-slot name="form">
+                <div class="col-span-6 sm:col-span-4">
+                    <x-label for="status" value="{{ __('Status') }}" />
+                    <x-button-status id="status" wire:model.defer="title" :status="$status"/>
+                    <x-input-error for="status" class="mt-2" />
+                </div>
+
+
+
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="title" value="{{ __('Title') }}" />
                     <x-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" />
@@ -36,7 +40,9 @@
                     {{ __('Saved.') }}
                 </x-action-message>
 
-                <x-link-button href="{{ route('dashboard.articles.index') }}" wire:navigate>
+                <x-link-button
+                    href="{{ route('dashboard.articles.index', ['categoryNumber' => $article->category->category_number]) }}"
+                    wire:navigate>
                     ← Back to List
                 </x-link-button>
 

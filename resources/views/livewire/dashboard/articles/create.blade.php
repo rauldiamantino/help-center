@@ -1,11 +1,7 @@
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Create Article') }}
-    </h2>
-</x-slot>
+<div class="w-full grid grid-cols-[300px_1fr] min-h-[600px]">
+    <x-articles-sidebar :categories="$categories" :categoryNumber="$categoryNumber"/>
 
-<div>
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="overflow-x-auto w-full py-10 sm:px-6 lg:px-8">
         <x-article-form-section submit="save">
             <x-slot name="form">
                 <div class="col-span-6 sm:col-span-4">
@@ -15,8 +11,8 @@
                 </div>
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="category_id" value="{{ __('Category') }}" />
-                    <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categories"
-                        value-field="id" label-field="name" option-default="Select" />
+                    <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categoriesSelect"
+                        value-field="id" label-field="name" option-default="Select" disabled="true"/>
                     <x-input-error for="category_id" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-4">
@@ -36,7 +32,7 @@
                     {{ __('Saved.') }}
                 </x-action-message>
 
-                <x-link-button href="{{ route('dashboard.articles.index') }}" wire:navigate>
+                <x-link-button href="{{ route('dashboard.articles.index', ['categoryNumber' => $categoryNumber]) }}" wire:navigate>
                     ← Back to List
                 </x-link-button>
                 <x-button>

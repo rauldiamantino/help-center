@@ -19,13 +19,12 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased h-screen flex flex-col overflow-hidden">
     <x-banner />
 
-    <div class="min-h-screen">
+    <div class="flex-1 flex flex-col overflow-hidden">
         @livewire('navigation-menu')
 
-        <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">
                 <div class="h-[76px] max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -34,16 +33,15 @@
             </header>
         @endif
 
-        <!-- Page Content -->
-        <main>
+        <main class="flex-1 flex overflow-hidden bg-white">
             <x-flash-message-dark />
             {{ $slot }}
         </main>
     </div>
 
     @stack('modals')
-
     @livewireScripts
 </body>
+
 
 </html>
