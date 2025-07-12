@@ -37,9 +37,20 @@ class EditArticle extends Component
 
         $this->title = $this->article->title;
         $this->slug = $this->article->slug;
-        $this->content = $this->article->content;
         $this->category_id = $this->article->category_id;
         $this->status = $this->article->status;
+
+        if (is_array($this->article->content)) {
+            $this->content = json_encode($this->article->content);
+        } elseif (is_string($this->article->content) && $this->article->content !== '') {
+            $this->content = $this->article->content;
+        } else {
+            $this->content = json_encode([
+                'time' => now()->timestamp,
+                'blocks' => [],
+                'version' => '2.29.0',
+            ]);
+        }
     }
 
     public function render()
@@ -49,7 +60,14 @@ class EditArticle extends Component
 
     public function save()
     {
+        $this->dispatch('saveEditorContent');
+
         $validated = $this->validate();
+
+        if (is_array($validated['content'])) {
+            $validated['content'] = json_encode($validated['content']);
+        }
+
         $this->article->fill($validated);
         $this->article->save();
         $this->dispatch('saved');
