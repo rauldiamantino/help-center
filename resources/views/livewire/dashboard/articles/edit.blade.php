@@ -52,7 +52,7 @@
             </x-slot>
         </x-article-form-section>
 
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 mt-10">
+        <div class="md:max-w-3xl mx-auto mt-10">
             <div class="bg-white p-6 rounded flex justify-between items-center border border-gray-300">
                 <div>
                     <h3 class="text-sm font-medium text-gray-800">Danger zone</h3>
