@@ -6,31 +6,35 @@
             <x-slot name="form">
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="status" value="{{ __('Status') }}" />
-                    <x-button-status id="status" wire:model.defer="title" :status="$status"/>
+                    <x-button-status id="status" wire:model.defer="title" :status="$status" />
                     <x-input-error for="status" class="mt-2" />
                 </div>
-
-
 
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="title" value="{{ __('Title') }}" />
                     <x-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" />
                     <x-input-error for="title" class="mt-2" />
                 </div>
+
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="category_id" value="{{ __('Category') }}" />
                     <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categories"
                         value-field="id" label-field="name" option-default="Select" />
                     <x-input-error for="category_id" class="mt-2" />
                 </div>
+
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="slug" value="{{ __('Slug') }}" />
                     <x-input id="slug" type="text" class="mt-1 block w-full" wire:model.defer="slug" />
                     <x-input-error for="slug" class="mt-2" />
                 </div>
+
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="content" value="{{ __('Content') }}" />
-                    <x-textarea rows="5" id="content" class="mt-1 block w-full" wire:model.defer="content" />
+                    <div id="content" wire:ignore wire:key="editor-{{ $article->id ?? 'new' }}"
+                        class="border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm p-4 min-h-[300px] bg-white">
+                    </div>
+                    <input type="hidden" wire:model.defer="content" />
                     <x-textarea-error for="content" class="mt-2" />
                 </div>
             </x-slot>
@@ -66,3 +70,9 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        window.livewireEditorContent = @json($content ? json_decode($content, true) : null);
+    </script>
+@endpush
