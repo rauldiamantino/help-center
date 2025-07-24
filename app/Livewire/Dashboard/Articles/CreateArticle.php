@@ -63,7 +63,7 @@ class CreateArticle extends Component
             'user_id' => Auth::id(),
         ]);
 
-        return $this->redirectRoute('dashboard.articles.index');
+        return $this->redirectRoute('dashboard.articles.index', ['categoryNumber' => $this->categoryNumber]);
     }
 
     protected function rules()
