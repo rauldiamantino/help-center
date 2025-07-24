@@ -41,7 +41,6 @@
 
     @stack('modals')
     @livewireScripts
-    @stack('scripts') {{-- Este é crucial! --}}
 </body>
 
 

@@ -29,7 +29,6 @@ class Article extends Model
         return [
             'views' => 'integer',
             'status' => 'integer',
-            'content' => 'array',
         ];
     }
 
