@@ -50,9 +50,11 @@ class EditArticle extends Component
     public function save()
     {
         $validated = $this->validate();
+
         $this->article->fill($validated);
         $this->article->save();
-        $this->dispatch('saved');
+
+        $this->dispatch('show-flash', message: 'Saved.');
     }
 
     public function destroy()

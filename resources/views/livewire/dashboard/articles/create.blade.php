@@ -22,36 +22,13 @@
                     <x-input id="slug" type="text" class="mt-1 block w-full" wire:model.defer="slug" />
                     <x-input-error for="slug" class="mt-2" />
                 </div>
-
-                <div class="col-span-6 sm:col-span-4">
-                    <x-label for="content" value="{{ __('Content') }}" />
-                    <div id="content" wire:ignore wire:key="editor-{{ $article->id ?? 'new' }}"
-                        class="border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm p-4 min-h-[300px] bg-white">
-                    </div>
-                    <input type="hidden" wire:model.defer="content" />
-                    <x-textarea-error for="content" class="mt-2" />
-                </div>
             </x-slot>
 
             <x-slot name="actions">
-                <x-action-message class="me-3" on="saved">
-                    {{ __('Saved.') }}
-                </x-action-message>
-
-                <x-link-button href="{{ route('dashboard.articles.index', ['categoryNumber' => $categoryNumber]) }}"
-                    wire:navigate>
-                    ← Back to List
-                </x-link-button>
-                <x-button>
+                <x-button-save>
                     {{ __('Save') }}
-                </x-button>
+                </x-button-save>
             </x-slot>
         </x-article-form-section>
     </div>
 </div>
-
-@push('scripts')
-    <script>
-        window.livewireEditorContent = @json($content ? json_decode($content, true) : null);
-    </script>
-@endpush

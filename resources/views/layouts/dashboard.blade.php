@@ -18,7 +18,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
 
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Styles -->
@@ -41,6 +40,8 @@
 
         <main class="flex-1 flex overflow-hidden bg-white">
             <x-flash-message-dark />
+            <x-flash-livewire />
+
             {{ $slot }}
         </main>
     </div>

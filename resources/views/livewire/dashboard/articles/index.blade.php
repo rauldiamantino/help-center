@@ -1,4 +1,4 @@
-<div class="w-full grid grid-cols-[300px_1fr] h-full">
+<div class="w-full flex h-screen">
     <x-articles-sidebar :categories="$categories" :categoryNumber="$categoryNumber" />
 
     <div class="overflow-x-auto w-full py-10 sm:px-6 lg:px-8">

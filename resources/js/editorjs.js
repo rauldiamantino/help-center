@@ -24,7 +24,14 @@ async function initEditor(data) {
     editorInstance = new EditorJS({
         holder,
         tools: {
-            header: Header,
+            header: {
+                class: Header,
+                inlineToolbar: true,
+                config: {
+                    levels: [1, 2, 3, 4],
+                    defaultLevel: 2,
+                },
+            },
             list: EditorjsList,
             paragraph: {
                 class: CustomParagraph,
@@ -40,6 +47,7 @@ async function initEditor(data) {
         onChange: async () => {
             const savedData = await editorInstance.save();
             const hiddenInput = document.querySelector('input[wire\\:model\\.defer="content"]');
+
             if (hiddenInput) {
                 hiddenInput.value = JSON.stringify(savedData);
                 hiddenInput.dispatchEvent(new Event('input'));

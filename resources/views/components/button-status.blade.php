@@ -13,6 +13,6 @@
 @endphp
 
 <button type="button" wire:click="$set('status', {{ $newStatus }})"
-    class="mt-2 px-4 py-2 rounded-md text-sm font-semibold transition-colors duration-200 {{ $classes }}">
+    class="px-4 py-2 rounded-md text-sm font-semibold transition-colors duration-200 {{ $classes }}">
     {{ $statusName }}
 </button>
