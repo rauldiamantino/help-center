@@ -54,7 +54,7 @@ class CreateArticle extends Component
     {
         $this->validate();
 
-        Article::create([
+        $article = Article::create([
             'title' => $this->title,
             'slug' => $this->slug,
             'content' => $this->content,
@@ -64,7 +64,7 @@ class CreateArticle extends Component
         ]);
 
         session()->flash('success', 'Saved.');
-        return $this->redirectRoute('dashboard.articles.index', ['categoryNumber' => $this->categoryNumber]);
+        return $this->redirectRoute('dashboard.articles.edit', ['articleNumber' => $article->article_number]);
     }
 
     protected function rules()

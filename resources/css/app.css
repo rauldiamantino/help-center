@@ -11,6 +11,10 @@
     min-height: calc(90vh) !important;
 }
 
+.article-edit-title h1 {
+  @apply text-4xl font-bold leading-tight;
+}
+
 h1.ce-header {
   @apply text-4xl font-bold leading-tight;
 }

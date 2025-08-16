@@ -18,6 +18,7 @@
                 </svg>
             </button>
         </div>
+
         <x-article-edit-form-section submit="save">
             <x-slot name="formA">
                 <div class="flex flex-col items-between gap-2 p-4">
@@ -37,12 +38,11 @@
                             value-field="id" label-field="name" option-default="Select" />
                         <x-input-error for="category_id" class="mt-2" />
                     </div>
-                    {{-- <div class="mt-10 w-full flex justify-center gap-2">
-                        <x-button-save class="md:w-full md:flex md:justify-center">
-                            {{ __('Save') }}
-                        </x-button-save>
-                    </div> --}}
                 </div>
+            </x-slot>
+
+            <x-slot name="formTitle">
+                <h1>{{ $article->title }}</h1>
             </x-slot>
 
             <x-slot name="formB">
@@ -50,7 +50,7 @@
                 <input type="hidden" wire:model.defer="content" />
                 <x-textarea-error for="content" />
             </x-slot>
-        </x-article-form-section>
+        </x-article-edit-form-section>
     </div>
 </div>
 

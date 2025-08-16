@@ -18,7 +18,11 @@
             </div>
         </div>
 
-        <div class="w-full h-[calc(100vh-65px)] overflow-y-auto flex flex-col">
+        <div class="w-full h-[calc(100vh-65px)] overflow-y-auto flex flex-col items-center">
+            <div class="w-[650px] article-edit-title">
+                {{ $formTitle }}
+            </div>
+
             {{ $formB }}
         </div>
     </form>
