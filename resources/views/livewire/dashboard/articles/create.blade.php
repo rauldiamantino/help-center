@@ -6,11 +6,11 @@
             <x-slot name="form">
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="title" value="{{ __('Title') }}" />
-                    <x-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" />
+                    <x-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" autofocus />
                     <x-input-error for="title" class="mt-2" />
                 </div>
 
-                <div class="col-span-6 sm:col-span-4">
+                <div class="col-span-6 sm:col-span-4 hidden">
                     <x-label for="category_id" value="{{ __('Category') }}" />
                     <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categoriesSelect"
                         value-field="id" label-field="name" option-default="Select" disabled="true" />
@@ -32,3 +32,34 @@
         </x-article-form-section>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        function initSlug() {
+            const articleTitle = document.querySelector('#title')
+            const articleSlug = document.querySelector('#slug')
+
+            if (! articleTitle || ! articleSlug) {
+                return
+            }
+
+            articleTitle.oninput = null
+            articleTitle.addEventListener('input', function() {
+                let slug = this.value
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/[^\w\-]+/g, '')
+                    .replace(/\-\-+/g, '-')
+                    .replace(/^-+/, '')
+                    .replace(/-+$/, '')
+
+                articleSlug.value = slug
+                articleSlug.dispatchEvent(new Event('input'))
+            })
+        }
+
+        initSlug()
+    </script>
+@endpush

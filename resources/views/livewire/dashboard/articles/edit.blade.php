@@ -56,6 +56,33 @@
 
 @push('scripts')
     <script>
-        window.livewireEditorContent = @json($content ? json_decode($content, true) : null);
+        window.livewireEditorContent = @json($content ? json_decode($content, true) : null)
+
+        function initSlug() {
+            const articleTitle = document.querySelector('#title')
+            const articleSlug = document.querySelector('#slug')
+
+            if (! articleTitle || ! articleSlug) {
+                return
+            }
+
+            articleTitle.oninput = null
+            articleTitle.addEventListener('input', function() {
+                let slug = this.value
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/[^\w\-]+/g, '')
+                    .replace(/\-\-+/g, '-')
+                    .replace(/^-+/, '')
+                    .replace(/-+$/, '')
+
+                articleSlug.value = slug
+                articleSlug.dispatchEvent(new Event('input'))
+            })
+        }
+
+        initSlug()
     </script>
 @endpush
