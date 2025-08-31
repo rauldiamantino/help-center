@@ -1,29 +1,34 @@
 @props(['categories', 'categoryNumber'])
 
-<aside class="hidden h-screen overflow-y-auto absolute z-40 md:static md:block min-w-[300px] max-w-full md:max-w-[300px] bg-gray-100 p-4 border-r border-gray-300 transition-transform duration-100 sidebar-category">
-    <div class="mb-6 py-1 px-1.5 w-full flex items-center justify-between gap-2 hover:bg-gray-200 rounded-md">
-        <h3 class="text-sm font-semibold text-gray-600 uppercase">Categories</h3>
+<aside class="hidden h-screen overflow-y-auto overflow-visible absolute z-40 md:static md:block min-w-[300px] max-w-full md:max-w-[300px] bg-gray-100 p-2 border-r border-gray-300 transition-transform duration-100 sidebar-category">
+    <nav class="space-y-1 text-sm">
+         <a href="{{ route('dashboard.articles.create') . '?categoryNumber=' . $categoryNumber }}" wire:navigate
+            class="flex gap-2 items-center px-3 py-2 mb-5 rounded-md hover:bg-gray-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="size-5" viewBox="0 0 16 16" stroke-width="0.3" stroke="currentColor">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+            </svg>
+            New article
+        </a>
 
-        <div class="w-full flex items-center justify-end gap-2">
-            <button type="button" class="md:hidden px-1.5 py-1 focus:outline-none hover:bg-gray-300 rounded-md button-close-sidebar-category">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <a href="{{ route('dashboard.articles.create') . '?categoryNumber=' . $categoryNumber }}" wire:navigate class="inline-flex items-center px-1.5 py-1 focus:outline-none hover:bg-gray-300 rounded-md">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                </svg>
-            </a>
-        </div>
-    </div>
+        <button type="button" class="absolute right-2 top-1 z-20 px-1.5 flex items-center py-1.5 focus:outline-none hover:bg-gray-200 rounded-md button-close-sidebar-category">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
 
-    <nav class="space-y-2">
         @foreach ($categories as $category)
-            <a href="{{ route('dashboard.articles.index', ['categoryNumber' => $category->category_number]) }}"
-                class="block px-3 py-2 rounded-md {{ $categoryNumber == $category->category_number ? 'font-bold' : 'hover:text-gray-600' }}">
-                {{ $category->name }}
-            </a>
+            <div onclick="window.location='{{ route('dashboard.articles.index', ['categoryNumber' => $category->category_number]) }}'"
+                class="relative group cursor-pointer w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-gray-200 {{ $categoryNumber == $category->category_number ? 'bg-gray-200' : '' }}">
+
+                <span class="group-hover:w-5/6 truncate">{{ $category->name }}</span>
+
+                <a href="" onclick="event.stopPropagation()" class="absolute right-2 hidden group-hover:block rounded-md bg-gray-200 hover:bg-gray-300 text-gray-600 p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                </a>
+            </div>
         @endforeach
     </nav>
 </aside>
