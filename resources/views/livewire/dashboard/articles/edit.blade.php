@@ -1,4 +1,4 @@
-<div class="w-full grid lg:grid-cols-[300px_1fr] h-screen">
+<div class="w-full grid md:grid-cols-[300px_1fr] h-screen">
     <x-articles-sidebar :categories="$categories" :categoryNumber="$article->category->category_number" class="sticky"/>
 
     <div class="w-full h-full">

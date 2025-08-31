@@ -1,6 +1,6 @@
 @props(['submit'])
-<div {{ $attributes->merge(['class' => 'relative w-full h-full']) }}>
-    <form id="article-edit-form" wire:submit="{{ $submit }}" class="flex flex-col md:flex-row gap-10">
+<div {{ $attributes->merge(['class' => 'relative w-full max-w-full h-full']) }}>
+    <form id="article-edit-form" wire:submit="{{ $submit }}" class="w-full flex flex-col md:flex-row gap-10">
         <div class="rounded-md absolute z-40 top-4 right-6 flex flex-col justify-between max-w-72 h-[80vh] bg-gray-50 border border-gray-150 overflow-y-auto transition-opacity duration-100 opacity-0 invisible intern-sidebar-article">
             {{ $formA }}
 
@@ -19,11 +19,12 @@
         </div>
 
         <div class="w-full h-[calc(100vh-65px)] overflow-y-auto flex flex-col items-center">
-            <div class="w-[650px] article-edit-title">
-                {{ $formTitle }}
+            <div class="w-full max-w-[650px]">
+                <div class="px-4 w-full article-edit-title">
+                    {{ $formTitle }}
+                </div>
+                {{ $formB }}
             </div>
-
-            {{ $formB }}
         </div>
     </form>
 </div>
