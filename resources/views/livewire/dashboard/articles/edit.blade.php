@@ -2,21 +2,27 @@
     <x-articles-sidebar :categories="$categories" :categoryNumber="$article->category->category_number" class="sticky"/>
 
     <div class="w-full h-full">
-        <div class="py-2 px-4 w-full flex justify-end items-center gap-2">
-            <div class="flex gap-1 items-center">
-                <x-input-error for="status" />
-                <x-button-status id="status" wire:model.defer="title" :status="$status" />
-            </div>
-
-            <x-button-save onclick="document.getElementById('article-edit-form').requestSubmit()">
-                {{ __('Save') }}
-            </x-button-save>
-
-            <button type="button" class="px-1.5 py-1 focus:outline-none hover:bg-gray-100 rounded-md button-open-intern-sidebar-article">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        <div class="mb-4 px-2 flex items-center justify-between">
+            <x-button-back-redirect :route="'dashboard.articles.index'" :params="['categoryNumber' => $article->category->category_number, 'page' => 1]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                 </svg>
-            </button>
+            </x-button-back-redirect>
+
+            <div class="py-2 px-4 w-full flex justify-end items-center gap-2">
+                <div class="flex gap-1 items-center">
+                    <x-input-error for="status" />
+                    <x-button-status id="status" wire:model.defer="title" :status="$status" />
+                </div>
+                <x-button-save onclick="document.getElementById('article-edit-form').requestSubmit()">
+                    {{ __('Save') }}
+                </x-button-save>
+                <button type="button" class="px-1.5 py-1 focus:outline-none hover:bg-gray-100 rounded-md button-open-intern-sidebar-article">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <x-article-edit-form-section submit="save">

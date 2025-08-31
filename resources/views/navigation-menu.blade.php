@@ -21,7 +21,7 @@
                         'dashboard.articles.edit',
                         'dashboard.articles.create',
                     )" wire:navigate>
-                        {{ __('Articles') }}
+                        {{ __('Contents') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                 'dashboard.articles.edit',
                 'dashboard.articles.create',
             )" wire:navigate>
-                {{ __('Articles') }}
+                {{ __('Contents') }}
             </x-responsive-nav-link>
         </div>
 

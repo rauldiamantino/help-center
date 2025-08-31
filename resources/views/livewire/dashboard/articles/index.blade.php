@@ -12,18 +12,18 @@
                     <tr class="hover:bg-indigo-300/50 border-b border-gray-300">
                         <td class="px-3 py-4 w-full">
                             <h2 class="{{ $article->status === 1 ? 'font-semibold' : 'font-light italic text-gray-500' }}">
-                                <a href="{{ route('dashboard.articles.edit', $article->article_number) }}" wire:navigate>
+                                <a href="{{ route('dashboard.articles.edit', $article->article_number) }}" wire:navigate class="hover:underline">
                                     {{ $article->title }}
                                 </a>
                             </h2>
                         </td>
                         <td class="px-3 py-4 w-32 text-right">
                             @if ($article->status === 1)
-                                <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-green-700 bg-green-100 rounded">
+                                <span class="inline-flex items-center text-xs font-semibold text-green-700 uppercase tracking-widest">
                                     Published
                                 </span>
                             @else
-                                <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-gray-600 bg-gray-200 rounded">
+                                <span class="inline-flex items-center text-xs font-semibold text-orange-700 uppercase tracking-widest">
                                     Draft
                                 </span>
                             @endif
