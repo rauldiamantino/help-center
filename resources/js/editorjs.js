@@ -16,8 +16,14 @@ async function destroyEditor() {
 }
 
 async function initEditor(data) {
+    const ImageTool = window.ImageTool;
     const holder = document.getElementById('content');
-    if (!holder) return;
+    const formEditArticle = document.querySelector('#form-edit-article')
+    const articleId = formEditArticle?.dataset.articleId;
+
+    if (! holder || ! articleId) {
+        return;
+    }
 
     await destroyEditor();
 
@@ -37,6 +43,31 @@ async function initEditor(data) {
                 class: CustomParagraph,
                 inlineToolbar: true,
             },
+            image: {
+                class: ImageTool,
+                config: {
+                    uploader: {
+                        uploadByFile: async (file) => {
+                            const formData = new FormData();
+                            formData.append('image', file);
+                            formData.append('owner_type', 'App\\Models\\Article');
+                            formData.append('owner_id', articleId);
+
+                            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                            const response = await fetch('/dashboard/upload', {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': token,
+                                },
+                                body: formData
+                            });
+
+                            return await response.json();
+                        },
+                    },
+                }
+            }
         },
         data: data || {
             time: Date.now(),

@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <x-article-edit-form-section submit="save">
+        <x-article-edit-form-section submit="save" id="form-edit-article" data-article-id="{{ $article->id }}">
             <x-slot name="formA">
                 <div class="flex flex-col items-between gap-2 p-4">
                     <div class="col-span-6 sm:col-span-4">

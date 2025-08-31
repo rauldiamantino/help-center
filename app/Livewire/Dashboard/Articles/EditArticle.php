@@ -2,13 +2,16 @@
 
 namespace App\Livewire\Dashboard\Articles;
 
+use App\Models\Upload;
 use App\Models\Article;
+use Livewire\Component;
 use App\Models\Category;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Layout;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use App\Services\Articles\CleanupOrphanUploads;
 
 #[Title('Articles')]
 #[Layout('layouts.dashboard')]
@@ -52,6 +55,9 @@ class EditArticle extends Component
         $validated = $this->validate();
 
         $this->article->fill($validated);
+
+        CleanupOrphanUploads::handle(Article::class, $this->article->id, $this->extractImageUrls());
+
         $this->article->save();
 
         $this->dispatch('show-flash', message: 'Saved.');
@@ -82,5 +88,25 @@ class EditArticle extends Component
             'content' => 'nullable|string',
             'status' => 'numeric',
         ];
+    }
+
+    private function extractImageUrls(): array
+    {
+        $content = json_decode($this->article->content, true);
+        $contentBlocks = $content['blocks'] ?? [];
+
+        $images = [];
+        foreach ($contentBlocks as $block) {
+
+            if (! isset($block['type']) || $block['type'] !== 'image') {
+                continue;
+            }
+
+            if (isset($block['data']['file']['url']) and $block['data']['file']['url']) {
+                $images[] = str_replace('/storage/', '', $block['data']['file']['url']);
+            }
+        }
+
+        return $images;
     }
 }
