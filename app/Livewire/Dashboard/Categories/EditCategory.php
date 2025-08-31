@@ -49,7 +49,8 @@ class EditCategory extends Component
         $this->category->fill($validated);
         $this->category->save();
 
-        $this->dispatch('show-flash', message: 'Saved.');
+        session()->flash('success', 'Saved.');
+        return $this->redirectRoute('dashboard.articles.index', ['categoryNumber' => $this->category->category_number]);
     }
 
     public function destroy()

@@ -47,7 +47,7 @@ class CreateCategory extends Component
         ]);
 
         session()->flash('success', 'Saved.');
-        return $this->redirectRoute('dashboard.categories.edit', ['categoryNumber' => $category->category_number]);
+        return $this->redirectRoute('dashboard.articles.index', ['categoryNumber' => $category->category_number]);
     }
 
     protected function rules()
