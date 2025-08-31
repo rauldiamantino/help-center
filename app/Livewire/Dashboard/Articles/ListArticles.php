@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
+use Livewire\WithPagination;
 
 #[Title('Article')]
 #[Layout('layouts.dashboard')]
 class ListArticles extends Component
 {
-    public Collection $articles;
     public Collection $categories;
 
     #[Url]
@@ -33,18 +33,30 @@ class ListArticles extends Component
         if (is_null($this->categoryNumber) && $this->categories->isNotEmpty()) {
             $this->categoryNumber = $this->categories->first()->category_number;
         }
-
-        if ($this->categoryNumber) {
-            $category = Category::where('company_id', $companyId)
-                ->where('category_number', $this->categoryNumber)
-                ->firstOrFail();
-
-            $this->articles = $category->articles->sortByDesc('updated_at');
-        }
     }
 
     public function render()
     {
-        return view('livewire.dashboard.articles.index');
+        $companyId = Auth::user()->company_id;
+
+        $categoryId = 0;
+        $articles = collect();
+
+        if ($this->categoryNumber) {
+            $categoryId = Category::where('company_id', $companyId)
+                ->where('category_number', $this->categoryNumber)
+                ->value('id');
+        }
+
+        if ($categoryId) {
+            $articles = Article::where('category_id', $categoryId)
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10)
+                ->withQueryString();
+        }
+
+        return view('livewire.dashboard.articles.index', [
+            'articles' => $articles,
+        ]);
     }
 }
