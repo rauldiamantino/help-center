@@ -68,7 +68,6 @@ class EditArticle extends Component
         return $this->redirectRoute('dashboard.articles.edit');
     }
 
-
     protected function rules()
     {
         return [
