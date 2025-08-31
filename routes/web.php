@@ -29,5 +29,4 @@ Route::middleware([
     Route::get('/categories/create', CreateCategory::class)->name('categories.create');
     Route::get('/categories/{categoryNumber}/edit', EditCategory::class)->name('categories.edit');
     Route::post('/upload', [UploadController::class, 'upload']);
-
 });
