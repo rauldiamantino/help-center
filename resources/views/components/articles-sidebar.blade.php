@@ -28,11 +28,21 @@
             </svg>
         </button>
 
+        <div onclick="window.location='{{ route('dashboard.articles.index', ['categoryNumber' => null]) }}'" class="relative group cursor-pointer w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-gray-200 {{ $categoryNumber === null ? 'bg-gray-200' : '' }}">
+            <div class="group-hover:w-5/6 truncate">
+                All articles
+                (<span class="font-bold">{{ $this->totalArticles }}</span>)
+            </div>
+        </div>
+
         @foreach ($categories as $category)
             <div onclick="window.location='{{ route('dashboard.articles.index', ['categoryNumber' => $category->category_number]) }}'"
                 class="relative group cursor-pointer w-full flex justify-between items-center px-3 py-2 rounded-md hover:bg-gray-200 {{ $categoryNumber == $category->category_number ? 'bg-gray-200' : '' }}">
 
-                <span class="group-hover:w-5/6 truncate">{{ $category->name }}</span>
+                <div class="group-hover:w-5/6 truncate">
+                    {{ $category->name }}
+                    (<span class="font-bold">{{ $category->articles_count }}</span>)
+                </div>
 
                 <a href="{{ route('dashboard.categories.edit', $category->category_number) }}" onclick="event.stopPropagation()" class="absolute right-2 hidden group-hover:block rounded-md bg-gray-200 hover:bg-gray-300 text-gray-600 p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">

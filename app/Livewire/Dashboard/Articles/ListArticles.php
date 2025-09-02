@@ -17,6 +17,7 @@ use Livewire\WithPagination;
 class ListArticles extends Component
 {
     public Collection $categories;
+    public int $totalArticles;
 
     #[Url]
     public ?int $categoryNumber = null;
@@ -27,12 +28,11 @@ class ListArticles extends Component
 
         $this->categories = Category::where('company_id', $companyId)
             ->select('id', 'name', 'category_number')
+            ->withCount('articles')
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        if (is_null($this->categoryNumber) && $this->categories->isNotEmpty()) {
-            $this->categoryNumber = $this->categories->first()->category_number;
-        }
+        $this->totalArticles = Article::where('company_id', $companyId)->count();
     }
 
     public function render()
@@ -40,7 +40,6 @@ class ListArticles extends Component
         $companyId = Auth::user()->company_id;
 
         $categoryId = 0;
-        $articles = collect();
 
         if ($this->categoryNumber) {
             $categoryId = Category::where('company_id', $companyId)
@@ -50,6 +49,12 @@ class ListArticles extends Component
 
         if ($categoryId) {
             $articles = Article::where('category_id', $categoryId)
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10)
+                ->withQueryString();
+        }
+        else {
+            $articles = Article::where('company_id', $companyId)
                 ->orderBy('updated_at', 'desc')
                 ->paginate(10)
                 ->withQueryString();

@@ -20,6 +20,7 @@ class CreateArticle extends Component
     public string $title;
     public string $slug;
     public string $content = '';
+    public int $totalArticles;
     public int $category_id;
 
     #[Url]
@@ -41,8 +42,11 @@ class CreateArticle extends Component
 
         $this->categories = Category::where('company_id', $companyId)
             ->select('id', 'name', 'category_number')
+            ->withCount('articles')
             ->orderBy('updated_at', 'desc')
             ->get();
+
+        $this->totalArticles = Article::where('company_id', $companyId)->count();
     }
 
     public function render()
