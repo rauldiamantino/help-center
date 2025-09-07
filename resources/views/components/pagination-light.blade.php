@@ -8,17 +8,19 @@
         <span class="font-semibold">{{ $paginator->total() }}</span>
         results
     </div>
+
     <div class="flex justify-center items-center space-x-1">
         {{-- Previous --}}
         @if ($paginator->onFirstPage())
-            <span
-                class="px-3 py-1 text-sm text-gray-400 bg-gray-100 border border-gray-300 rounded">Prev</span>
+            <span class="px-3 py-1 text-sm text-gray-400 bg-gray-100 border border-gray-300 rounded">Prev</span>
         @else
-            <a href="{{ $paginator->previousPageUrl() }}"
+            <button
+                wire:click="previousPage"
                 class="px-3 py-1 text-sm text-gray-700 bg-white border border-gray-300 rounded hover:bg-indigo-100">
                 Prev
-            </a>
+            </button>
         @endif
+
         {{-- Pages --}}
         @foreach ($elements as $element)
             @if (is_string($element))
@@ -27,26 +29,27 @@
             @if (is_array($element))
                 @foreach ($element as $page => $url)
                     @if ($page == $paginator->currentPage())
-                        <span
-                            class="px-3 py-1 text-sm text-white bg-indigo-400 border border-indigo-400 rounded">{{ $page }}</span>
+                        <span class="px-3 py-1 text-sm text-white bg-indigo-400 border border-indigo-400 rounded">{{ $page }}</span>
                     @else
-                        <a href="{{ $url }}"
+                        <button
+                            wire:click="gotoPage({{ $page }})"
                             class="px-3 py-1 text-sm text-gray-700 bg-white border border-gray-300 rounded hover:bg-indigo-100">
                             {{ $page }}
-                        </a>
+                        </button>
                     @endif
                 @endforeach
             @endif
         @endforeach
+
         {{-- Next --}}
         @if ($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}"
+            <button
+                wire:click="nextPage"
                 class="px-3 py-1 text-sm text-gray-700 bg-white border border-gray-300 rounded hover:bg-indigo-100">
                 Next
-            </a>
+            </button>
         @else
-            <span
-                class="px-3 py-1 text-sm text-gray-400 bg-gray-100 border border-gray-300 rounded">Next</span>
+            <span class="px-3 py-1 text-sm text-gray-400 bg-gray-100 border border-gray-300 rounded">Next</span>
         @endif
     </div>
 </div>
