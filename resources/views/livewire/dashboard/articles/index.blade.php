@@ -6,7 +6,7 @@
             {{ $articles->links('components.pagination-light') }}
         </div>
 
-        <table class="mb-2 min-w-full table-fixed text-sm text-left text-gray-700 rounded-lg overflow-hidden">
+        <table class="mb-4 min-w-full table-fixed text-sm text-left text-gray-700 rounded-lg overflow-hidden">
             <tbody class="divide-y divide-gray-300">
                 @foreach ($articles as $article)
                     <tr class="hover:bg-indigo-300/50">
