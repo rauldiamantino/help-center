@@ -1,15 +1,15 @@
-<div class="w-full flex h-screen">
+<div class="w-full flex min-h-[calc(100vh-76px)]">
     <livewire:dashboard.articles.articles-sidebar :category-number="$categoryNumber" />
 
-    <div class="overflow-x-auto w-full py-2 sm:px-6 lg:px-8">
-        <div class="mb-5">
+    <div class="relative overflow-x-auto w-full h-full sm:px-6 lg:px-8">
+        <div class="sticky top-0 bg-white py-5">
             {{ $articles->links('components.pagination-light') }}
         </div>
 
-        <table class="min-w-full table-fixed text-sm text-left text-gray-700 rounded-lg overflow-hidden">
-            <tbody>
+        <table class="mb-2 min-w-full table-fixed text-sm text-left text-gray-700 rounded-lg overflow-hidden">
+            <tbody class="divide-y divide-gray-300">
                 @foreach ($articles as $article)
-                    <tr class="hover:bg-indigo-300/50 border-b border-gray-300">
+                    <tr class="hover:bg-indigo-300/50">
                         <td class="px-3 py-4 w-full">
                             <h2 class="{{ $article->status === 1 ? 'font-semibold' : 'font-light italic text-gray-500' }}">
                                 <a href="{{ route('dashboard.articles.edit', $article->article_number) }}" wire:navigate class="hover:underline">
@@ -30,8 +30,8 @@
                         </td>
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
-
     </div>
 </div>

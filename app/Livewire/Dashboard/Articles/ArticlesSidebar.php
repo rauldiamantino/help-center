@@ -22,12 +22,13 @@ class ArticlesSidebar extends Component
         $this->categoryNumber = $categoryNumber ?? request()->query('categoryNumber');
 
         // Active tab
-        if (Route::currentRouteName() === 'dashboard.articles.create') {
+        if ($this->categoryNumber) {
+            $this->active = 'category' . $this->categoryNumber;
+        } elseif (Route::currentRouteName() === 'dashboard.articles.create') {
             $this->active = 'newArticle';
         } elseif (Route::currentRouteName() === 'dashboard.categories.create') {
             $this->active = 'newCategory';
-        } elseif ($this->categoryNumber) {
-            $this->active = 'category' . $this->categoryNumber;
+
         } else {
             $this->active = 'allArticles';
         }

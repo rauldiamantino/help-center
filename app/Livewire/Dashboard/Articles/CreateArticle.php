@@ -20,7 +20,7 @@ class CreateArticle extends Component
     public string $title;
     public string $slug;
     public string $content = '';
-    public int $category_id;
+    public int $categoryId;
     public int $status;
 
     #[Url]
@@ -42,7 +42,7 @@ class CreateArticle extends Component
                 ->where('category_number', $this->categoryNumber)
                 ->firstOrFail();
 
-            $this->category_id = $category->id;
+            $this->categoryId = $category->id;
             $this->categoriesSelect = collect([ $category ]);
         }
         else {
@@ -64,7 +64,7 @@ class CreateArticle extends Component
             'slug' => $this->slug,
             'content' => $this->content,
             'status' => $this->status,
-            'category_id' => $this->category_id,
+            'category_id' => $this->categoryId,
             'company_id' => Auth::user()->company_id,
             'user_id' => Auth::id(),
         ]);

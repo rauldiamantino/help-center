@@ -23,6 +23,7 @@ class EditArticle extends Component
     public string $slug;
     public string $content;
     public int $category_id;
+    public ?int $categoryNumber;
     public int $status;
 
     public function mount(int $articleNumber)
@@ -43,6 +44,13 @@ class EditArticle extends Component
         $this->content = $this->article->content;
         $this->category_id = $this->article->category_id;
         $this->status = $this->article->status;
+
+        foreach ($this->categories as $value) {
+
+            if ($this->category_id && $this->category_id === $value->id) {
+                $this->categoryNumber = $value->category_number;
+            }
+        }
     }
 
     public function render()

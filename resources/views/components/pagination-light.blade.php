@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between">
+<div class="w-full flex flex-col md:flex-row items-center justify-between gap-2">
     <div class="text-sm text-gray-400">
         Showing
         <span class="font-semibold">{{ $paginator->firstItem() }}</span>

@@ -50,13 +50,13 @@ class ListArticles extends Component
         if ($categoryId) {
             $articles = Article::where('category_id', $categoryId)
                 ->orderBy('updated_at', 'desc')
-                ->paginate(10)
+                ->paginate(20)
                 ->withQueryString();
         }
         else {
             $articles = Article::where('company_id', $companyId)
                 ->orderBy('updated_at', 'desc')
-                ->paginate(10)
+                ->paginate(20)
                 ->withQueryString();
         }
 
