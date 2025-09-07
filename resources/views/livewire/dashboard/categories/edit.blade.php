@@ -1,7 +1,21 @@
 <div class="w-full grid md:grid-cols-[300px_1fr] min-h-[600px]">
-    <x-categories-sidebar :categories="$categories" :categoryNumber="$category->category_number" />
+    <livewire:dashboard.articles.articles-sidebar :category-number="$category->category_number" />
 
-    <div class="overflow-x-auto w-full py-10 sm:px-6 lg:px-8">
+    <div class="w-full">
+        <div class="mb-4 px-2 flex items-center justify-between">
+            <x-button-back-redirect :route="'dashboard.articles.index'" :params="['categoryNumber' => null]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+            </x-button-back-redirect>
+
+            <div class="py-2 px-4 w-full flex justify-end items-center gap-2">
+                <x-button-save onclick="document.getElementById('category-edit-form').requestSubmit()">
+                    {{ __('Save') }}
+                </x-button-save>
+            </div>
+        </div>
+
         <x-category-edit-form-section submit="save">
             <x-slot name="form">
                 <div class="col-span-6 sm:col-span-4">
@@ -15,17 +29,6 @@
                     <x-input id="slug" type="text" class="mt-1 block w-full" wire:model.defer="slug" />
                     <x-input-error for="slug" class="mt-2" />
                 </div>
-            </x-slot>
-
-            <x-slot name="actions">
-                <div class="flex gap-1 items-center">
-                    <x-input-error for="status" />
-                    <x-button-status id="status" wire:model.defer="status" :status="$status" />
-                </div>
-
-                <x-button-save  wire:click="save">
-                    {{ __('Save') }}
-                </x-button-save>
             </x-slot>
         </x-category-edit-form-section>
     </div>

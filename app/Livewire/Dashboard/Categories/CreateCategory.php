@@ -47,6 +47,9 @@ class CreateCategory extends Component
         ]);
 
         session()->flash('success', 'Saved.');
+        // Update Article Sidebar
+        $this->dispatch('articleUpdated');
+
         return $this->redirectRoute('dashboard.articles.index', ['categoryNumber' => $category->category_number]);
     }
 

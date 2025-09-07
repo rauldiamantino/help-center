@@ -22,7 +22,6 @@ class EditArticle extends Component
     public string $title;
     public string $slug;
     public string $content;
-    public int $totalArticles;
     public int $category_id;
     public int $status;
 
@@ -36,7 +35,6 @@ class EditArticle extends Component
 
         $this->categories = Category::where('company_id', $companyId)
             ->select('id', 'name', 'category_number')
-            ->withCount('articles')
             ->orderBy('updated_at', 'desc')
             ->get();
 
@@ -45,8 +43,6 @@ class EditArticle extends Component
         $this->content = $this->article->content;
         $this->category_id = $this->article->category_id;
         $this->status = $this->article->status;
-
-        $this->totalArticles = Article::where('company_id', $companyId)->count();
     }
 
     public function render()
@@ -65,6 +61,7 @@ class EditArticle extends Component
         $this->article->save();
 
         $this->dispatch('show-flash', message: 'Saved.');
+        $this->dispatch('articleUpdated');
     }
 
     public function destroy()

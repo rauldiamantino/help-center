@@ -50,6 +50,9 @@ class EditCategory extends Component
         $this->category->save();
 
         session()->flash('success', 'Saved.');
+        // Update Article Sidebar
+        $this->dispatch('articleUpdated');
+
         return $this->redirectRoute('dashboard.articles.index', ['categoryNumber' => $this->category->category_number]);
     }
 

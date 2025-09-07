@@ -1,5 +1,5 @@
 <div class="w-full grid md:grid-cols-[300px_1fr] min-h-[600px]">
-    <x-articles-sidebar :categories="$categories" :categoryNumber="$categoryNumber" />
+    <livewire:dashboard.articles.articles-sidebar />
 
     <div class="w-full">
         <div class="mb-4 px-2 flex items-center justify-between">
@@ -30,8 +30,16 @@
 
                 <div class="col-span-6 sm:col-span-4">
                     <x-label for="category_id" value="{{ __('Category') }}" />
-                    <x-select name="category_id" id="category_id" wire:model.defer="category_id" :options="$categoriesSelect"
-                        value-field="id" label-field="name" option-default="Select" />
+                    <x-select
+                        name="category_id"
+                        id="category_id"
+                        wire:model.defer="category_id"
+                        disabled="{{ $categoryNumber ? true : false }}"
+                        :options="$categoriesSelect"
+                        value-field="id"
+                        label-field="name"
+                        option-default="Select"
+                    />
                     <x-input-error for="category_id" class="mt-2" />
                 </div>
 

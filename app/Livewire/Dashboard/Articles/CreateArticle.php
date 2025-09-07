@@ -20,7 +20,6 @@ class CreateArticle extends Component
     public string $title;
     public string $slug;
     public string $content = '';
-    public int $totalArticles;
     public int $category_id;
     public int $status;
 
@@ -30,10 +29,10 @@ class CreateArticle extends Component
     public function mount()
     {
         $companyId = Auth::user()->company_id;
+        $this->status = 0;
 
         $this->categories = Category::where('company_id', $companyId)
             ->select('id', 'name', 'category_number')
-            ->withCount('articles')
             ->orderBy('updated_at', 'desc')
             ->get();
 
@@ -49,9 +48,6 @@ class CreateArticle extends Component
         else {
             $this->categoriesSelect = $this->categories;
         }
-
-        $this->totalArticles = Article::where('company_id', $companyId)->count();
-        $this->status = 0;
     }
 
     public function render()
@@ -74,6 +70,10 @@ class CreateArticle extends Component
         ]);
 
         session()->flash('success', 'Saved.');
+
+        // Update Article Sidebar
+        $this->dispatch('articleUpdated');
+
         return $this->redirectRoute('dashboard.articles.edit', ['articleNumber' => $article->article_number]);
     }
 

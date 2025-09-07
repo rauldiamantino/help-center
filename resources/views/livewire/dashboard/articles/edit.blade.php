@@ -1,5 +1,6 @@
 <div class="w-full grid md:grid-cols-[300px_1fr] h-screen">
-    <x-articles-sidebar :categories="$categories" :categoryNumber="$article->category->category_number" class="sticky"/>
+    <livewire:dashboard.articles.articles-sidebar />
+
 
     <div class="w-full h-full">
         <div class="mb-4 px-2 flex items-center justify-between">

@@ -1,5 +1,5 @@
 <div class="w-full flex h-screen">
-    <x-articles-sidebar :categories="$categories" :categoryNumber="$categoryNumber" />
+    <livewire:dashboard.articles.articles-sidebar :category-number="$categoryNumber" />
 
     <div class="overflow-x-auto w-full py-2 sm:px-6 lg:px-8">
         <div class="mb-5">
