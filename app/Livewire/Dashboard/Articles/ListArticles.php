@@ -16,8 +16,16 @@ use Livewire\WithPagination;
 #[Layout('layouts.dashboard')]
 class ListArticles extends Component
 {
+    use WithPagination;
     public Collection $categories;
     public int $totalArticles;
+    public string $inputSearch = '';
+
+    protected $messages = [
+        'inputSearch.required' => 'The search field is required',
+        'inputSearch.min' => 'Please enter at least 3 characters',
+        'inputSearch.max' => 'Maximum of 255 characters allowed',
+    ];
 
     #[Url]
     public ?int $categoryNumber = null;
@@ -31,8 +39,6 @@ class ListArticles extends Component
             ->withCount('articles')
             ->orderBy('updated_at', 'desc')
             ->get();
-
-        $this->totalArticles = Article::where('company_id', $companyId)->count();
     }
 
     public function render()
@@ -47,21 +53,27 @@ class ListArticles extends Component
                 ->value('id');
         }
 
+        $query = Article::where('company_id', $companyId);
+
         if ($categoryId) {
-            $articles = Article::where('category_id', $categoryId)
-                ->orderBy('updated_at', 'desc')
-                ->paginate(20)
-                ->withQueryString();
+            $query->where('category_id', $categoryId);
         }
-        else {
-            $articles = Article::where('company_id', $companyId)
-                ->orderBy('updated_at', 'desc')
-                ->paginate(20)
-                ->withQueryString();
+
+        if ($this->inputSearch) {
+            $query->where('title', 'like', '%' . $this->inputSearch . '%');
         }
+
+        $articles = $query->orderBy('updated_at', 'desc')
+                        ->paginate(20)
+                        ->withQueryString();
 
         return view('livewire.dashboard.articles.index', [
             'articles' => $articles,
         ]);
+    }
+
+    public function updatingInputSearch()
+    {
+        $this->resetPage();
     }
 }
