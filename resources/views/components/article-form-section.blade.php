@@ -1,7 +1,7 @@
 @props(['submit'])
 
 <div {{ $attributes->merge(['class' => 'mx-auto w-full md:max-w-3xl bg-white rounded-lg']) }}>
-    <form wire:submit="{{ $submit }}" class="space-y-10">
+    <form id="article-create-form" wire:submit="{{ $submit }}" class="space-y-10">
         <div class="p-4 space-y-8">
             {{ $form }}
         </div>

@@ -22,6 +22,7 @@ class CreateArticle extends Component
     public string $content = '';
     public int $totalArticles;
     public int $category_id;
+    public int $status;
 
     #[Url]
     public ?int $categoryNumber = null;
@@ -29,6 +30,12 @@ class CreateArticle extends Component
     public function mount()
     {
         $companyId = Auth::user()->company_id;
+
+        $this->categories = Category::where('company_id', $companyId)
+            ->select('id', 'name', 'category_number')
+            ->withCount('articles')
+            ->orderBy('updated_at', 'desc')
+            ->get();
 
         if ($this->categoryNumber) {
             $category = Category::select('id', 'name', 'category_number')
@@ -39,14 +46,12 @@ class CreateArticle extends Component
             $this->category_id = $category->id;
             $this->categoriesSelect = collect([ $category ]);
         }
-
-        $this->categories = Category::where('company_id', $companyId)
-            ->select('id', 'name', 'category_number')
-            ->withCount('articles')
-            ->orderBy('updated_at', 'desc')
-            ->get();
+        else {
+            $this->categoriesSelect = $this->categories;
+        }
 
         $this->totalArticles = Article::where('company_id', $companyId)->count();
+        $this->status = 0;
     }
 
     public function render()
@@ -62,6 +67,7 @@ class CreateArticle extends Component
             'title' => $this->title,
             'slug' => $this->slug,
             'content' => $this->content,
+            'status' => $this->status,
             'category_id' => $this->category_id,
             'company_id' => Auth::user()->company_id,
             'user_id' => Auth::id(),
@@ -83,6 +89,7 @@ class CreateArticle extends Component
             ],
             'category_id' => 'required|numeric|exists:categories,id',
             'content' => 'nullable|string',
+            'status' => 'numeric',
         ];
     }
 }
